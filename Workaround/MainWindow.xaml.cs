@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Data.Sqlite;
+using System.Windows.Interop;
+using Workaround.Classes;
 
 namespace Workaround
 {
@@ -13,7 +16,6 @@ namespace Workaround
     /// </summary>
     public partial class MainWindow : Window
     {
-
         private string _dbName = "db.db";
         private SqliteConnection _conn;
         public MainWindow()
@@ -21,6 +23,24 @@ namespace Workaround
             InitializeComponent();
             _conn = InitializeDb();
             InitializeClipList(GetClips());
+        }
+        
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            // Initialize the clipboard now that we have a window soruce to use
+            var windowClipboardManager = new ClipboardManager(this);
+            windowClipboardManager.ClipboardChanged += ClipboardChanged;
+        }
+
+        private void ClipboardChanged(object sender, EventArgs e)
+        {
+            // Handle your clipboard update here, debug logging example:
+            if (Clipboard.ContainsText())
+            {
+                AddClip(Clipboard.GetText());
+            }
         }
 
         private void MenuItem_openEcMultipleConsole(object sender, RoutedEventArgs e)
