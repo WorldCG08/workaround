@@ -105,7 +105,7 @@ namespace Workaround
                 _conn.Open();
                 var command = _conn.CreateCommand();
                 command.CommandText =
-                    $"INSERT INTO clips (clip, created) VALUES ('{clip}','{DateTime.Now}')";
+                    $"INSERT INTO clips (clip, created) VALUES ('{ClipFormatSave(clip)}','{DateTime.Now}')";
                 command.ExecuteReader();
                 _conn.Close();
             
@@ -152,9 +152,10 @@ namespace Workaround
             }
         }
 
-        // private string ClipFormatSave(string str)
-        // {
-        //     
-        // }
+        // Repeat single quote for giving ability to save to sqlite
+        private string ClipFormatSave(string str)
+        {
+            return str.Replace("'", "''");
+        }
     }
 }
