@@ -36,7 +36,7 @@ namespace Workaround
 
         private void ClipboardChanged(object sender, EventArgs e)
         {
-            // Handle your clipboard update here, debug logging example:
+            // Handle your clipboard update here:
             if (Clipboard.ContainsText())
             {
                 AddClip(Clipboard.GetText());
@@ -88,15 +88,30 @@ namespace Workaround
             }
         }
         
-        // Add new clip to DB.
+        // Add new clip to DB and put it into list.
         private void AddClip(string clip)
         {
-            _conn.Open();
-            var command = _conn.CreateCommand();
-            command.CommandText =
-                $"INSERT INTO clips (clip, created) VALUES ('{clip}','{DateTime.Now}')";
-            command.ExecuteReader();
-            _conn.Close();
+            bool InList = false;
+            if (ClipList.SelectedItem != null && ClipList.SelectedItem.ToString() == clip) return;
+            
+            foreach (var listBoxItem in ClipList.Items)
+            {
+                if (listBoxItem.ToString() == clip) InList = true;
+            }
+
+            if (!InList)
+            {
+                // Adding to DB.
+                _conn.Open();
+                var command = _conn.CreateCommand();
+                command.CommandText =
+                    $"INSERT INTO clips (clip, created) VALUES ('{clip}','{DateTime.Now}')";
+                command.ExecuteReader();
+                _conn.Close();
+            
+                // Putting to list.
+                ClipList.Items.Insert(0, clip);
+            }
         }
         
         // Get a list of clips
@@ -136,5 +151,10 @@ namespace Workaround
                 ClipList.Items.Add(clip);
             }
         }
+
+        // private string ClipFormatSave(string str)
+        // {
+        //     
+        // }
     }
 }
