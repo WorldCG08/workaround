@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "kajVTD6nKnmHoQsEHJMV8zzs3SojLdC+8OHsQW1b1VeKAA6CFs1DgSgsEEVmnmBIy8TCcHaJ/EA8Wo4DgNZG0g==",
+  "success": true,
+  "projectFilePath": "D:\\wd\\learning\\C#\\Workaround\\Workaround\\Workaround.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\y.melnyk\\.nuget\\packages\\microsoft.data.sqlite\\5.0.9\\microsoft.data.sqlite.5.0.9.nupkg.sha512",
+    "C:\\Users\\y.melnyk\\.nuget\\packages\\microsoft.data.sqlite.core\\5.0.9\\microsoft.data.sqlite.core.5.0.9.nupkg.sha512",
+    "C:\\Users\\y.melnyk\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.4\\sqlitepclraw.bundle_e_sqlite3.2.0.4.nupkg.sha512",
+    "C:\\Users\\y.melnyk\\.nuget\\packages\\sqlitepclraw.core\\2.0.4\\sqlitepclraw.core.2.0.4.nupkg.sha512",
+    "C:\\Users\\y.melnyk\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.0.4\\sqlitepclraw.lib.e_sqlite3.2.0.4.nupkg.sha512",
+    "C:\\Users\\y.melnyk\\.nuget\\packages\\sqlitepclraw.provider.dynamic_cdecl\\2.0.4\\sqlitepclraw.provider.dynamic_cdecl.2.0.4.nupkg.sha512",
+    "C:\\Users\\y.melnyk\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+  ],
+  "logs": []
+}
