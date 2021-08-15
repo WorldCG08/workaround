@@ -28,15 +28,17 @@ namespace Workaround.Classes
             {
                 // Google clipboard
                 if ((int) msg.wParam == CTRL_ALT_G)
-                    MessageBox.Show("!"); // debug command for checking is shortcut working
-                if (Clipboard.ContainsText())
                 {
-                    var text = Clipboard.GetText();
-                    System.Diagnostics.Process.Start(new ProcessStartInfo
+                    //MessageBox.Show("!"); // debug command for checking is shortcut working
+                    if (Clipboard.ContainsText())
                     {
-                        FileName = $"https://www.google.com/search?q={text}",
-                        UseShellExecute = true
-                    });
+                        var text = Clipboard.GetText();
+                        System.Diagnostics.Process.Start(new ProcessStartInfo
+                        {
+                            FileName = $"https://www.google.com/search?q={text}",
+                            UseShellExecute = true
+                        });
+                    }
                 }
             }
         }
