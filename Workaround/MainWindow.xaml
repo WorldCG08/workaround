@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Workaround"
         mc:Ignorable="d"
-        Title="MainWindow" Height="658" Width="286" ResizeMode="NoResize">
+        Title="MainWindow" Height="658" Width="844" ResizeMode="NoResize">
     <Grid>
         <Menu Height="21" VerticalAlignment="Top">
             <MenuItem Header="AWS">
@@ -20,7 +20,16 @@
             <MenuItem Header="Edit" ></MenuItem>
             <MenuItem Header="View" ></MenuItem>
         </Menu>
-        <ListBox x:Name="ClipList" HorizontalAlignment="Left" Height="326" Margin="10,36,0,0" VerticalAlignment="Top" Width="246" MouseDoubleClick="clipList_MouseDoubleClick"/>
-        <Calendar x:Name="ClipCalendar" HorizontalAlignment="Left" Height="196" Margin="10,367,0,0" VerticalAlignment="Top" Width="242" SelectedDatesChanged="ClipCalendar_SelectedDatesChanged" />
+        <ListBox x:Name="ClipList" HorizontalAlignment="Center" Height="326" Margin="0,36,0,0" VerticalAlignment="Top" Width="780" MouseDoubleClick="clipList_MouseDoubleClick"/>
+        <Calendar x:Name="ClipCalendar" HorizontalAlignment="Center" Height="196" Margin="0,416,0,0" VerticalAlignment="Top" Width="242" SelectedDatesChanged="ClipCalendar_SelectedDatesChanged" RenderTransformOrigin="0.5,0.5" >
+            <Calendar.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Calendar.RenderTransform>
+        </Calendar>
     </Grid>
 </Window>

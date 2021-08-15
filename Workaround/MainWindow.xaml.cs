@@ -17,7 +17,7 @@ namespace Workaround
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string _dbName = "db.db";
+        public static string DBNAME = "db.db";
         private SqliteConnection _conn;
 
         public MainWindow()
@@ -25,12 +25,13 @@ namespace Workaround
             InitializeComponent();
             _conn = InitializeDb();
             InitializeClipList(GetClips());
-            
+
             //Configuration for global hotkeys.
             HotkeysManager.SetupSystemHook();
 
             // You can create a globalhotkey object and pass it like so
             HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad0, () => { AddToList(new SearchInGoogle()); });
+            HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad1, () => { AddToList(new OpenClipTable()); });
             // or do it like this. both end up doing the same thing, but this is probably simpler.
             // HotkeysManager.AddHotkey(ModifierKeys.Control, Key.A, () => { AddToList("Ctrl+A Fired"); });
             // HotkeysManager.AddHotkey(ModifierKeys.Control, Key.D, () => { AddToList("Ctrl+D Fired"); });
@@ -93,11 +94,11 @@ namespace Workaround
         // Initialization of DB and returning of connection
         private SqliteConnection InitializeDb()
         {
-            if (!File.Exists(_dbName))
+            if (!File.Exists(DBNAME))
             {
-                File.WriteAllBytes(_dbName, new byte[0]);
+                File.WriteAllBytes(DBNAME, new byte[0]);
                 
-                using (var connection = new SqliteConnection("Data Source=" + _dbName))
+                using (var connection = new SqliteConnection("Data Source=" + DBNAME))
                 {
                     connection.Open();
 
@@ -115,7 +116,7 @@ namespace Workaround
             }
             else
             {
-                return new SqliteConnection("Data Source=" + _dbName);
+                return new SqliteConnection("Data Source=" + DBNAME);
             }
         }
         
