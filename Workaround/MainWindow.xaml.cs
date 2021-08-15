@@ -56,6 +56,10 @@ namespace Workaround
             {
                 AddClip(Clipboard.GetText());
             }
+            else if (Clipboard.ContainsText() && Clipboard.GetText().Length > 10000)
+            {
+                AddClip(Clipboard.GetText(), true);
+            }
         }
 
         private void MenuItem_openEcMultipleConsole(object sender, RoutedEventArgs e)
@@ -102,13 +106,26 @@ namespace Workaround
                 {
                     connection.Open();
 
-                    var command = connection.CreateCommand();
-                    command.CommandText =
+                    var clipCreateCommand = connection.CreateCommand();
+                    var bigClipCreateCommand = connection.CreateCommand();
+                    
+                    // Create table for simple clips (less 10000 length)
+                    clipCreateCommand.CommandText =
                         @"
                         CREATE TABLE clips (id INTEGER	constraint clips_pk primary key autoincrement,
                         clip text, created text)
                         ";
-                    command.ExecuteReader();
+                    clipCreateCommand.ExecuteReader();
+                    
+                    // Create table for big clips (>10000 length)
+                    bigClipCreateCommand.CommandText =
+                        @"
+                        CREATE TABLE bigclips (id INTEGER	constraint bigclips_pk primary key autoincrement,
+                        clip text, created text)
+                        ";
+                    bigClipCreateCommand.ExecuteReader();
+                    
+                    
                     connection.Close();
 
                     return connection;
@@ -121,7 +138,7 @@ namespace Workaround
         }
         
         // Add new clip to DB and put it into list.
-        private void AddClip(string clip)
+        private void AddClip(string clip, bool isBig = false)
         {
             bool InList = false;
             if (ClipList.SelectedItem != null && ClipList.SelectedItem.ToString() == clip) return;
@@ -136,8 +153,17 @@ namespace Workaround
                 // Adding to DB.
                 _conn.Open();
                 var command = _conn.CreateCommand();
-                command.CommandText =
-                    $"INSERT INTO clips (clip, created) VALUES ('{ClipFormatSave(clip)}','{DateTime.Now}')";
+                if (isBig)
+                {
+                    command.CommandText =
+                        $"INSERT INTO bigclips (clip, created) VALUES ('{ClipFormatSave(clip)}','{DateTime.Now}')";
+                }
+                else
+                {
+                    command.CommandText =
+                        $"INSERT INTO clips (clip, created) VALUES ('{ClipFormatSave(clip)}','{DateTime.Now}')";
+                }
+
                 command.ExecuteReader();
                 _conn.Close();
             
@@ -145,7 +171,7 @@ namespace Workaround
                 if (ClipCalendar.SelectedDate == null || 
                     DateTime.Now.ToShortDateString() == ClipCalendar.SelectedDate.Value.ToShortDateString())
                 {
-                    ClipList.Items.Insert(0, clip);
+                    if (!isBig) ClipList.Items.Insert(0, clip);
                 }
             }
         }

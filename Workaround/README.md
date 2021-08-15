@@ -10,3 +10,7 @@ Global shortcuts implemented:
 
  1. Ctrl + NumPad0 - search in google copied to buffer string
  2. Ctrl + NumPad1 - Show list with all Clips
+
+
+Notice:
+ 1. Clips with length more than 10000 are saved in bigclips table
