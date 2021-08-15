@@ -1,3 +1,4 @@
+using System.Windows;
 using Workaround.Interfaces;
 
 namespace Workaround.Classes.HotKeys
@@ -7,7 +8,9 @@ namespace Workaround.Classes.HotKeys
         public void RunCommand()
         {
             var clipTable = new ClipTable();
-            clipTable.ShowDialog();
+            clipTable.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            clipTable.Topmost = true;
+            clipTable.Show();
         }
     }
 }
