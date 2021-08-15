@@ -15,6 +15,8 @@ namespace Workaround
         {
             InitializeComponent();
             InitializeClipTable();
+            
+            // Set focus to search block
             tbClipListSearch.Focus();
         }
         
@@ -29,6 +31,7 @@ namespace Workaround
         private void InitializeClipTable(string search = null)
         {
             var clipList = new List<ClipModel>();
+            int clipCount = 0;
             using (_conn)
             {
                 _conn.Open();
@@ -48,11 +51,13 @@ namespace Workaround
                     while (reader.Read())
                     {
                         clipList.Add(new ClipModel(reader.GetString(0), reader.GetString(1)));
+                        clipCount++;
                     }
                 }
                 _conn.Close();
             }
             clipgrid.ItemsSource = clipList;
+            lblCount.Content = clipCount;
         }
     }
 }
