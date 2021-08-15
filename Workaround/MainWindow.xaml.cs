@@ -52,7 +52,7 @@ namespace Workaround
         private void ClipboardChanged(object sender, EventArgs e)
         {
             // Handle your clipboard update here:
-            if (Clipboard.ContainsText())
+            if (Clipboard.ContainsText() && Clipboard.GetText().Length < 10000)
             {
                 AddClip(Clipboard.GetText());
             }

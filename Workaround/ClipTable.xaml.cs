@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Data.Sqlite;
@@ -20,6 +21,7 @@ namespace Workaround
             tbClipListSearch.Focus();
         }
         
+        // Listener for click ENTER in limit or search textboxes.
         private void OnClipListSearchEnter(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
@@ -27,11 +29,12 @@ namespace Workaround
                 InitializeClipTable(tbClipListSearch.Text);
             }
         }
-        
+
         private void InitializeClipTable(string search = null)
         {
             var clipList = new List<ClipModel>();
             int clipCount = 0;
+            int clipLimit = Int32.Parse((tbClipsLimit?.Text.Length > 0) ? tbClipsLimit.Text : "0");
             using (_conn)
             {
                 _conn.Open();
@@ -40,17 +43,27 @@ namespace Workaround
                 if (search?.Length > 0)
                 {
                     command.CommandText =
-                        $"SELECT clip, created FROM clips WHERE clip LIKE '%{search}%' ORDER BY id DESC";
+                        $"SELECT clip, created, id FROM clips WHERE clip LIKE '%{search}%' ORDER BY id DESC";
                 }
                 else
                 {
-                    command.CommandText = $"SELECT clip, created FROM clips ORDER BY id DESC";
+                    command.CommandText = $"SELECT clip, created, id FROM clips ORDER BY id DESC";
+                }
+
+                if (clipLimit == 0)
+                {
+                    command.CommandText += " LIMIT 10000";
+                }
+                else
+                {
+                    command.CommandText += " LIMIT " + clipLimit;
                 }
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        clipList.Add(new ClipModel(reader.GetString(0), reader.GetString(1)));
+                        clipList.Add(
+                            new ClipModel(reader.GetString(0), reader.GetString(1), Int32.Parse(reader.GetString(2))));
                         clipCount++;
                     }
                 }
@@ -59,5 +72,6 @@ namespace Workaround
             clipgrid.ItemsSource = clipList;
             lblCount.Content = clipCount;
         }
+
     }
 }
