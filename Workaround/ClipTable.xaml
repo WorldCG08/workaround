@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ClipTable" Height="894" Width="1277">
     <Grid>
-        <DataGrid x:Name="clipgrid" AutoGenerateColumns="False" Margin="0,34,0,0" AlternationCount="2" AlternatingRowBackground="Salmon">
+        <DataGrid x:Name="clipgrid" AutoGenerateColumns="False" Margin="0,34,0,0" AlternationCount="2" AlternatingRowBackground="Salmon" ScrollViewer.CanContentScroll="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Path = Id}" Width="30"/>
                 <DataGridTextColumn Header="Clip" Binding="{Binding Path = ClipName}" Width="*"/>

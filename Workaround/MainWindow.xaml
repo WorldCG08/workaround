@@ -20,7 +20,7 @@
             <MenuItem Header="Edit" ></MenuItem>
             <MenuItem Header="View" ></MenuItem>
         </Menu>
-        <ListBox x:Name="ClipList" Margin="10,26,313,10" MouseDoubleClick="clipList_MouseDoubleClick"/>
+        <ListBox x:Name="ClipList" Margin="10,26,313,10" MouseDoubleClick="clipList_MouseDoubleClick" ScrollViewer.CanContentScroll="False"/>
         <Calendar x:Name="ClipCalendar" Margin="854,63,52,0" SelectedDatesChanged="ClipCalendar_SelectedDatesChanged" RenderTransformOrigin="0.5,0.5" Height="169" VerticalAlignment="Top" >
             <Calendar.RenderTransform>
                 <TransformGroup>
