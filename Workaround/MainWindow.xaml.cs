@@ -16,6 +16,8 @@ namespace Workaround
     {
         private string _dbName = "db.db";
         private SqliteConnection _conn;
+        HotkeyListener hotkeyListener = new HotkeyListener();
+        
         public MainWindow()
         {
             InitializeComponent();
