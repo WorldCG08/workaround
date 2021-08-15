@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Input;
 using Microsoft.Data.Sqlite;
 using Workaround.Classes.Model;
 namespace Workaround
@@ -14,9 +15,18 @@ namespace Workaround
         {
             InitializeComponent();
             InitializeClipTable();
+            tbClipListSearch.Focus();
         }
         
-        private void InitializeClipTable()
+        private void OnClipListSearchEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                InitializeClipTable(tbClipListSearch.Text);
+            }
+        }
+        
+        private void InitializeClipTable(string search = null)
         {
             var clipList = new List<ClipModel>();
             using (_conn)
@@ -24,8 +34,15 @@ namespace Workaround
                 _conn.Open();
                 
                 var command = _conn.CreateCommand();
-                command.CommandText = $"SELECT clip, created FROM clips ORDER BY id DESC";
-                
+                if (search?.Length > 0)
+                {
+                    command.CommandText =
+                        $"SELECT clip, created FROM clips WHERE clip LIKE '%{search}%' ORDER BY id DESC";
+                }
+                else
+                {
+                    command.CommandText = $"SELECT clip, created FROM clips ORDER BY id DESC";
+                }
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())

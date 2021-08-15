@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Workaround"
         mc:Ignorable="d"
-        Title="MainWindow" Height="508" Width="1079" ResizeMode="NoResize">
+        Title="Workaround" Height="508" Width="1079" ResizeMode="NoResize">
     <Grid Margin="0,0,0,8">
         <Menu Height="21" VerticalAlignment="Top">
             <MenuItem Header="AWS">
