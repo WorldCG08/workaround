@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Data.Sqlite;
 using Workaround.Classes;
+using Workaround.Classes.HotKeys;
+using Workaround.Interfaces;
 
 namespace Workaround
 {
@@ -16,13 +19,24 @@ namespace Workaround
     {
         private string _dbName = "db.db";
         private SqliteConnection _conn;
-        HotkeyListener hotkeyListener = new HotkeyListener();
-        
+
         public MainWindow()
         {
             InitializeComponent();
             _conn = InitializeDb();
             InitializeClipList(GetClips());
+            
+            //Configuration for global hotkeys.
+            HotkeysManager.SetupSystemHook();
+
+            // You can create a globalhotkey object and pass it like so
+            HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad0, () => { AddToList(new SearchInGoogle()); });
+            // or do it like this. both end up doing the same thing, but this is probably simpler.
+            // HotkeysManager.AddHotkey(ModifierKeys.Control, Key.A, () => { AddToList("Ctrl+A Fired"); });
+            // HotkeysManager.AddHotkey(ModifierKeys.Control, Key.D, () => { AddToList("Ctrl+D Fired"); });
+            // HotkeysManager.AddHotkey(ModifierKeys.Shift, Key.D, () => { AddToList("Shift+D Fired"); });
+
+            Closing += MainWindow_Closing;
         }
         
         protected override void OnSourceInitialized(EventArgs e)
@@ -182,6 +196,18 @@ namespace Workaround
         private string ClipFormatSave(string str)
         {
             return str.Replace("'", "''");
+        }
+        
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            // Need to shutdown the hook. idk what happens if
+            // you dont, but it might cause a memory leak.
+            HotkeysManager.ShutdownSystemHook();
+        }
+        
+        public void AddToList(IRunCommand runCommand)
+        {
+            runCommand.RunCommand();
         }
     }
 }
