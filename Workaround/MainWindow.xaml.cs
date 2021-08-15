@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Data.Sqlite;
-using System.Windows.Interop;
 using Workaround.Classes;
 
 namespace Workaround
@@ -56,6 +54,23 @@ namespace Workaround
             if (index == null) return;
             {
                 Clipboard.SetText(this.ClipList.SelectedItem.ToString()!);
+            }
+        }
+        
+        private void ClipCalendar_SelectedDatesChanged(object sender,
+            SelectionChangedEventArgs e)
+        {
+            // ... Get reference.
+            var calendar = sender as Calendar;
+
+            // ... See if a date is selected.
+            if (calendar.SelectedDate.HasValue)
+            {
+                // ... Display SelectedDate in Title.
+                DateTime date = calendar.SelectedDate.Value;
+                string selectedDay = date.ToShortDateString();
+                
+                InitializeClipList(GetClips(selectedDay));
             }
         }
         
@@ -109,13 +124,17 @@ namespace Workaround
                 command.ExecuteReader();
                 _conn.Close();
             
-                // Putting to list.
-                ClipList.Items.Insert(0, clip);
+                // Putting to list if selected date = null or selected today.
+                if (ClipCalendar.SelectedDate == null || 
+                    DateTime.Now.ToShortDateString() == ClipCalendar.SelectedDate.Value.ToShortDateString())
+                {
+                    ClipList.Items.Insert(0, clip);
+                }
             }
         }
         
         // Get a list of clips
-        private List<string> GetClips()
+        private List<string> GetClips(string date = null)
         {
             var clipList = new List<string>();
             using (_conn)
@@ -123,12 +142,15 @@ namespace Workaround
                 _conn.Open();
 
                 var command = _conn.CreateCommand();
-                command.CommandText =
-                    @"
-                        SELECT clip
-                        FROM clips
-                        ORDER BY id DESC
-                    ";
+                if (date != null)
+                {
+                    command.CommandText = $"SELECT clip FROM clips WHERE created LIKE '{date}%' ORDER BY id DESC";
+                }
+                else
+                {
+                    string today = DateTime.Today.ToShortDateString();
+                    command.CommandText = $"SELECT clip FROM clips WHERE created LIKE '{today}%' ORDER BY id DESC";
+                }
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -143,8 +165,10 @@ namespace Workaround
             return clipList;
         }
 
+        // Show list with clips in ClipList.
         private void InitializeClipList(List<string> clipList)
         {
+            ClipList.Items.Clear();
             if (clipList == null) return;
             foreach (var clip in clipList)
             {

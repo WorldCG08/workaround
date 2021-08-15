@@ -1,3 +1,5 @@
-Workaround/Workaround/bin/
-Workaround/bin/
-Workaround/obj/
+Workaround/Workaround/bin/*
+Workaround/bin/*
+Workaround/obj/*
+.vs/*
+.idea/*

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Workaround"
         mc:Ignorable="d"
-        Title="MainWindow" Height="378" Width="671">
+        Title="MainWindow" Height="658" Width="286" ResizeMode="NoResize">
     <Grid>
         <Menu Height="21" VerticalAlignment="Top">
             <MenuItem Header="AWS">
@@ -20,6 +20,7 @@
             <MenuItem Header="Edit" ></MenuItem>
             <MenuItem Header="View" ></MenuItem>
         </Menu>
-        <ListBox x:Name="ClipList" HorizontalAlignment="Left" Height="326" Margin="415,26,0,0" VerticalAlignment="Top" Width="246" MouseDoubleClick="clipList_MouseDoubleClick"/>
+        <ListBox x:Name="ClipList" HorizontalAlignment="Left" Height="326" Margin="10,36,0,0" VerticalAlignment="Top" Width="246" MouseDoubleClick="clipList_MouseDoubleClick"/>
+        <Calendar x:Name="ClipCalendar" HorizontalAlignment="Left" Height="196" Margin="10,367,0,0" VerticalAlignment="Top" Width="242" SelectedDatesChanged="ClipCalendar_SelectedDatesChanged" />
     </Grid>
 </Window>
