@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Workaround"
         mc:Ignorable="d"
-        Title="MainWindow" Height="658" Width="844" ResizeMode="NoResize">
-    <Grid>
+        Title="MainWindow" Height="508" Width="1079" ResizeMode="NoResize">
+    <Grid Margin="0,0,0,8">
         <Menu Height="21" VerticalAlignment="Top">
             <MenuItem Header="AWS">
                 <MenuItem Header="Open multiple EC2 consoles" Click="MenuItem_openEcMultipleConsole"></MenuItem>
@@ -20,8 +20,8 @@
             <MenuItem Header="Edit" ></MenuItem>
             <MenuItem Header="View" ></MenuItem>
         </Menu>
-        <ListBox x:Name="ClipList" HorizontalAlignment="Center" Height="326" Margin="0,36,0,0" VerticalAlignment="Top" Width="780" MouseDoubleClick="clipList_MouseDoubleClick"/>
-        <Calendar x:Name="ClipCalendar" HorizontalAlignment="Center" Height="196" Margin="0,416,0,0" VerticalAlignment="Top" Width="242" SelectedDatesChanged="ClipCalendar_SelectedDatesChanged" RenderTransformOrigin="0.5,0.5" >
+        <ListBox x:Name="ClipList" Margin="10,26,289,10" MouseDoubleClick="clipList_MouseDoubleClick"/>
+        <Calendar x:Name="ClipCalendar" Margin="841,63,55,0" SelectedDatesChanged="ClipCalendar_SelectedDatesChanged" RenderTransformOrigin="0.5,0.5" Height="169" VerticalAlignment="Top" >
             <Calendar.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
