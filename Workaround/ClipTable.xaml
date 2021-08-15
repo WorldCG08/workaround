@@ -7,13 +7,12 @@
         mc:Ignorable="d"
         Title="ClipTable" Height="894" Width="1277">
     <Grid>
-        <DataGrid x:Name="clipgrid" AutoGenerateColumns="False" Margin="0,87,0,0">
+        <DataGrid x:Name="clipgrid" AutoGenerateColumns="False" Margin="0,34,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Clip" Binding="{Binding Path = ClipName}" Width="*"/>
                 <DataGridTextColumn Header="Created" Binding="{Binding Path = Created}" Width="150"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="tbClipListSearch" Margin="10,63,0,0" TextWrapping="Wrap" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="419" KeyDown="OnClipListSearchEnter"/>
-        <Label Content="Search" Margin="10,32,0,0" HorizontalAlignment="Left" Width="95" Height="26" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbClipListSearch" Margin="10,10,0,0" TextWrapping="Wrap" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="419" KeyDown="OnClipListSearchEnter"/>
     </Grid>
 </Window>
