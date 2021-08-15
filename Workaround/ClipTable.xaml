@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="ClipTable" Height="750" Width="1277">
     <Grid>
-        <DataGrid x:Name="clipgrid"/>
+        <DataGrid x:Name="clipgrid" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Clip" Binding="{Binding Path = ClipName}" Width="*"/>
+                <DataGridTextColumn Header="Created" Binding="{Binding Path = Created}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
