@@ -8,3 +8,4 @@ Right now can do the following:
 Global shortcuts implemented:
 
  1. Ctrl + NumPad0 - search in google copied to buffer string
+ 2. Ctrl + NumPad1 - Show list with all Clips
