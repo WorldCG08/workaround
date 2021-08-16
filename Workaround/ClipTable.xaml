@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Workaround"
         mc:Ignorable="d"
-        Title="ClipTable" Height="894" Width="1277">
+        Title="ClipTable" Height="663" Width="1274">
     <Grid>
         <DataGrid x:Name="clipgrid" AutoGenerateColumns="False" Margin="0,34,0,0" AlternationCount="2" AlternatingRowBackground="Salmon" ScrollViewer.CanContentScroll="False">
             <DataGrid.Columns>
