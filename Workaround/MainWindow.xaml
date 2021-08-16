@@ -9,15 +9,14 @@
     <Grid Margin="0,0,0,8">
         <Menu Height="21" VerticalAlignment="Top">
             <MenuItem Header="AWS">
-                <MenuItem Header="Open multiple EC2 consoles" Click="MenuItem_openEcMultipleConsole"></MenuItem>
-                <MenuItem Header="Open Project" >
-                    <MenuItem Header="WinForms"></MenuItem>
-                    <MenuItem Header="WPF" ></MenuItem>
+                <MenuItem Header="...." >
+                    <MenuItem Header="..."></MenuItem>
+                    <MenuItem Header="..." ></MenuItem>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="Exit" ></MenuItem>
+                <MenuItem Header="...." ></MenuItem>
             </MenuItem>
-            <MenuItem Header="Edit" ></MenuItem>
+            <MenuItem Header="....." ></MenuItem>
             <MenuItem Header="Settings" Click="MenuItem_OpenSettings"></MenuItem>
         </Menu>
         <ListBox x:Name="ClipList" Margin="10,26,313,10" MouseDoubleClick="clipList_MouseDoubleClick" ScrollViewer.CanContentScroll="False"/>

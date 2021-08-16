@@ -30,6 +30,7 @@ namespace Workaround
             // You can create a globalhotkey object and pass it like so
             HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad0, () => { AddToList(new SearchInGoogle()); });
             HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad1, () => { AddToList(new OpenClipTable(this)); });
+            HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad2, () => { AddToList(new MultipleInstancesOpen()); });
 
             Closing += MainWindow_Closing;
         }
@@ -54,12 +55,6 @@ namespace Workaround
             {
                 AddClip(Clipboard.GetText(), true);
             }
-        }
-
-        private void MenuItem_openEcMultipleConsole(object sender, RoutedEventArgs e)
-        {
-            var multipleConsoleWindow = new MultipleInstancesOpenWindow();
-            multipleConsoleWindow.ShowDialog();
         }
 
         private void MenuItem_OpenSettings(object sender, RoutedEventArgs e)
