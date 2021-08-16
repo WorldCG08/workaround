@@ -29,7 +29,7 @@ namespace Workaround
             HotkeysManager.SetupSystemHook();
             // You can create a globalhotkey object and pass it like so
             HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad0, () => { AddToList(new SearchInGoogle()); });
-            HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad1, () => { AddToList(new OpenClipTable()); });
+            HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad1, () => { AddToList(new OpenClipTable(this)); });
 
             Closing += MainWindow_Closing;
         }

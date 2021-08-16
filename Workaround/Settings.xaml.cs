@@ -31,6 +31,9 @@ namespace Workaround
             {
                 SettingsManager.Save(tb.Name, tb.Text);
             }
+            
+            // Close window after applying
+            this.Close();
         }
     }
 }
