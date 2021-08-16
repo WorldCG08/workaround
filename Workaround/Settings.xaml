@@ -13,7 +13,8 @@
         <StackPanel Margin="250,10,22,10">
             <Label Content="Clip List" Height="27" Width="52"/>
             <Label Content="Default clip limit"/>
-            <TextBox Text="10000" TextWrapping="Wrap" Width="164"/>
+            <TextBox Name="settings_ClipLimit" Text="10000" TextWrapping="Wrap" Width="164"/>
         </StackPanel>
+        <Button Content="Apply" HorizontalAlignment="Left" Height="25" Margin="186,103,0,0" VerticalAlignment="Top" Width="59" Click="Button_Click"/>
     </Grid>
 </Window>

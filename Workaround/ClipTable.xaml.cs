@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Data.Sqlite;
 using Workaround.Classes;
@@ -13,17 +14,28 @@ namespace Workaround
     public partial class ClipTable : Window
     {
         private SqliteConnection _conn = new SqliteConnection("Data Source=" + SettingsManager.Dbname);
+        
         public ClipTable()
         {
             InitializeComponent();
-            InitializeClipTable();
+            tbClipsLimit.Text = SettingsManager.Load("settings_ClipLimit", "10000");
             
+            InitializeClipTable();
             // Set focus to search block
             tbClipListSearch.Focus();
         }
         
-        // Listener for click ENTER in limit or search textboxes.
+        // Listener for click ENTER in search textboxes.
         private void OnClipListSearchEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                InitializeClipTable(tbClipListSearch.Text);
+            }
+        }
+        
+        // Listener for click ENTER in limit or search textboxes.
+        private void OnClipListLimitEnter(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {

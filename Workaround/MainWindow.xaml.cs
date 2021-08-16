@@ -23,7 +23,6 @@ namespace Workaround
         {
             InitializeComponent();
             _conn = new SettingsManager().InitializeDb();
-            SettingsManager.IsSettingExist("test");
             InitializeClipList(GetClips());
 
             //Configuration for global hotkeys.

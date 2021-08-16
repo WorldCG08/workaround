@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using System.IO;
+using System.Windows;
+using System.Windows.Media;
 using Microsoft.Data.Sqlite;
 
 namespace Workaround.Classes
@@ -12,46 +15,55 @@ namespace Workaround.Classes
         // Save setting
         public static void Save(string setting, string value)
         {
-            CONN.Open();
-            var command = CONN.CreateCommand();
-            //Check is setting exist.
-            if (IsSettingExist(setting))
+            using (var connection = new SqliteConnection("Data Source=" + Dbname))
             {
-                command.CommandText = $"UPDATE settings SET value = {value} WHERE setting = '{setting}'";
+                connection.Open();
+                var command = connection.CreateCommand();
+                //Check is setting exist.
+                if (IsSettingExist(setting))
+                {
+                    command.CommandText = $"UPDATE settings SET value = {value} WHERE setting = '{setting}'";
+                }
+                else
+                {
+                    command.CommandText = $"INSERT INTO settings (setting, value) VALUES ('{setting}','{value}')";
+                }
+                command.ExecuteReader();
+                connection.Close();
             }
-            else
-            {
-                command.CommandText = $"INSERT INTO settings (setting, value) VALUES ('{setting}','{value}')";
-            }
-            command.ExecuteReader();
-            CONN.Close();
         }
 
         // Load setting
         public static string Load(string setting, string defVal = null)
         {
-            CONN.Open();
-            var command = CONN.CreateCommand();
-            command.CommandText = $"SELECT value FROM settings WHERE setting = '{setting}' limit 1";
-            using (var reader = command.ExecuteReader())
+            using (var connection = new SqliteConnection("Data Source=" + Dbname))
             {
-                while (reader.Read())
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = $"SELECT value FROM settings WHERE setting = '{setting}' limit 1";
+                using (var reader = command.ExecuteReader())
                 {
-                    return reader.GetString(0);
+                    while (reader.Read())
+                    {
+                        return reader.GetString(0);
+                    }
                 }
+                connection.Close();
+                return defVal;
             }
-            CONN.Close();
-            return defVal;
         }
 
         public static bool IsSettingExist(string setting)
         {
-            CONN.Open();
-            var command = CONN.CreateCommand();
-            command.CommandText = $"SELECT id FROM settings WHERE setting = '{setting}'";
-            var HasRows = command.ExecuteReader().HasRows;
-            CONN.Close();
-            return HasRows;
+            using (var connection = new SqliteConnection("Data Source=" + Dbname))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = $"SELECT id FROM settings WHERE setting = '{setting}'";
+                var HasRows = command.ExecuteReader().HasRows;
+                connection.Close();
+                return HasRows;
+            }
         }
 
         // Initialization of DB and returning of connection
@@ -64,7 +76,6 @@ namespace Workaround.Classes
                 using (var connection = new SqliteConnection("Data Source=" + Dbname))
                 {
                     connection.Open();
-
                     var clipCreateCommand = connection.CreateCommand();
                     var bigClipCreateCommand = connection.CreateCommand();
                     var SettingsCreateCommand = connection.CreateCommand();
@@ -92,16 +103,30 @@ namespace Workaround.Classes
                         setting text, value text)
                         ";
                     SettingsCreateCommand.ExecuteReader();
-
-
                     connection.Close();
-
                     return connection;
                 }
             }
             else
             {
                 return new SqliteConnection("Data Source=" + Dbname);
+            }
+        }
+        
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj == null)
+                yield break;
+    
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(depObj, i);
+
+                if (child != null && child is T)
+                    yield return (T)child;
+                
+                foreach (T childOfChild in FindVisualChildren<T>(child))
+                    yield return childOfChild;
             }
         }
     }

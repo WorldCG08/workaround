@@ -16,7 +16,7 @@
         </DataGrid>
         <TextBox x:Name="tbClipListSearch" Margin="10,10,0,0" TextWrapping="Wrap" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="419" KeyDown="OnClipListSearchEnter"/>
         <Label x:Name="lblCount" Content="0" Height="29" Margin="1178,0,20,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox x:Name="tbClipsLimit" HorizontalAlignment="Left" Height="19" Margin="977,10,0,0" Text="10000" TextWrapping="Wrap" VerticalAlignment="Top" Width="110" KeyDown="OnClipListSearchEnter"/>
+        <TextBox x:Name="tbClipsLimit" HorizontalAlignment="Left" Height="19" Margin="977,10,0,0" Text="10000" TextWrapping="Wrap" VerticalAlignment="Top" Width="110" KeyDown="OnClipListLimitEnter"/>
         <Label Content="Limit" HorizontalAlignment="Left" Margin="936,7,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
