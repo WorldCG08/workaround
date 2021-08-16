@@ -1,0 +1,19 @@
+﻿<Window x:Class="Workaround.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Workaround"
+        mc:Ignorable="d"
+        Title="Settings" Height="256" Width="453">
+    <Grid Margin="0,0,10,0">
+        <StackPanel HorizontalAlignment="Left" Height="220" Margin="10,10,0,0" VerticalAlignment="Top" Width="171">
+            <Label Content="Main" Height="27" Width="40"/>
+        </StackPanel>
+        <StackPanel Margin="250,10,22,10">
+            <Label Content="Clip List" Height="27" Width="52"/>
+            <Label Content="Default clip limit"/>
+            <TextBox Text="10000" TextWrapping="Wrap" Width="164"/>
+        </StackPanel>
+    </Grid>
+</Window>

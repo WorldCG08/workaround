@@ -17,25 +17,20 @@ namespace Workaround
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static string DBNAME = "db.db";
         private SqliteConnection _conn;
 
         public MainWindow()
         {
             InitializeComponent();
-            _conn = InitializeDb();
+            _conn = new SettingsManager().InitializeDb();
+            SettingsManager.IsSettingExist("test");
             InitializeClipList(GetClips());
 
             //Configuration for global hotkeys.
             HotkeysManager.SetupSystemHook();
-
             // You can create a globalhotkey object and pass it like so
             HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad0, () => { AddToList(new SearchInGoogle()); });
             HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad1, () => { AddToList(new OpenClipTable()); });
-            // or do it like this. both end up doing the same thing, but this is probably simpler.
-            // HotkeysManager.AddHotkey(ModifierKeys.Control, Key.A, () => { AddToList("Ctrl+A Fired"); });
-            // HotkeysManager.AddHotkey(ModifierKeys.Control, Key.D, () => { AddToList("Ctrl+D Fired"); });
-            // HotkeysManager.AddHotkey(ModifierKeys.Shift, Key.D, () => { AddToList("Shift+D Fired"); });
 
             Closing += MainWindow_Closing;
         }
@@ -68,6 +63,12 @@ namespace Workaround
             multipleConsoleWindow.ShowDialog();
         }
 
+        private void MenuItem_OpenSettings(object sender, RoutedEventArgs e)
+        {
+            var settingsMenu = new Settings();
+            settingsMenu.ShowDialog();
+        }
+
         // Set selected clip to buffer
         private void clipList_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -92,48 +93,6 @@ namespace Workaround
                 string selectedDay = date.ToShortDateString();
                 
                 InitializeClipList(GetClips(selectedDay));
-            }
-        }
-        
-        // Initialization of DB and returning of connection
-        private SqliteConnection InitializeDb()
-        {
-            if (!File.Exists(DBNAME))
-            {
-                File.WriteAllBytes(DBNAME, new byte[0]);
-                
-                using (var connection = new SqliteConnection("Data Source=" + DBNAME))
-                {
-                    connection.Open();
-
-                    var clipCreateCommand = connection.CreateCommand();
-                    var bigClipCreateCommand = connection.CreateCommand();
-                    
-                    // Create table for simple clips (less 10000 length)
-                    clipCreateCommand.CommandText =
-                        @"
-                        CREATE TABLE clips (id INTEGER	constraint clips_pk primary key autoincrement,
-                        clip text, created text)
-                        ";
-                    clipCreateCommand.ExecuteReader();
-                    
-                    // Create table for big clips (>10000 length)
-                    bigClipCreateCommand.CommandText =
-                        @"
-                        CREATE TABLE bigclips (id INTEGER	constraint bigclips_pk primary key autoincrement,
-                        clip text, created text)
-                        ";
-                    bigClipCreateCommand.ExecuteReader();
-                    
-                    
-                    connection.Close();
-
-                    return connection;
-                }
-            }
-            else
-            {
-                return new SqliteConnection("Data Source=" + DBNAME);
             }
         }
         

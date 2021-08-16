@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Data.Sqlite;
+using Workaround.Classes;
 using Workaround.Classes.Model;
 namespace Workaround
 {
@@ -11,7 +12,7 @@ namespace Workaround
     /// </summary>
     public partial class ClipTable : Window
     {
-        private SqliteConnection _conn = new SqliteConnection("Data Source=" + MainWindow.DBNAME);
+        private SqliteConnection _conn = new SqliteConnection("Data Source=" + SettingsManager.Dbname);
         public ClipTable()
         {
             InitializeComponent();
