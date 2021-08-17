@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Workaround.Classes
@@ -108,7 +109,8 @@ namespace Workaround.Classes
                 {
                     foreach (GlobalHotkey hotkey in Hotkeys)
                     {
-                        if (Keyboard.Modifiers == hotkey.Modifier && Keyboard.IsKeyDown(hotkey.Key))
+                        var mkc = new ModifierKeysConverter();
+                        if (Keyboard.Modifiers == (ModifierKeys)mkc.ConvertFromString("Ctrl + Alt") && Keyboard.IsKeyDown(hotkey.Key))
                         {
                             if (hotkey.CanExecute)
                             {

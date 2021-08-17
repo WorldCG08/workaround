@@ -8,9 +8,9 @@ Right now can do the following:
 
 Global shortcuts implemented:
 
- 1. Ctrl + NumPad0 - search in google copied to buffer string
- 2. Ctrl + NumPad1 - Show list with all Clips
- 3. Ctrl + NumPad2 - Fast open instance IDs in clipboard (eu-west-1 region right now(no config right now))
+ 1. Ctrl + Alt + NumPad0 - search in google copied to buffer string
+ 2. Ctrl + Alt + NumPad1 - Show list with all Clips
+ 3. Ctrl + Alt + NumPad2 - Fast open instance IDs in clipboard (eu-west-1 region right now(no config right now))
 
 
 Notice:

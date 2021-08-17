@@ -27,7 +27,7 @@ namespace Workaround
 
             //Configuration for global hotkeys.
             HotkeysManager.SetupSystemHook();
-            // You can create a globalhotkey object and pass it like so
+            // You can create a globalhotkey object and pass it like so. Alt Key is checked in HotkeysManager.cs (see - var mkc)
             HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad0, () => { AddToList(new SearchInGoogle()); });
             HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad1, () => { AddToList(new OpenClipTable(this)); });
             HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad2, () => { AddToList(new MultipleInstancesOpen()); });
