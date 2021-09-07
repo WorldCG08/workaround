@@ -1,23 +1,22 @@
 using System;
-using System.Linq;
 using System.Windows;
 using Workaround.Interfaces;
 
 namespace Workaround.Classes.HotKeys
 {
-    public class OpenClipTable : IRunCommand
+    public class OpenPathTable : IRunCommand
     {
         private Window _window;
-        public OpenClipTable(Window window)
+        
+        public OpenPathTable(Window window)
         {
             _window = window;
         }
-        
         public void RunCommand()
         {
-            var clipTable = new ClipTable();
-            clipTable.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            ShowWindow(clipTable, _window);
+            var pathTable = new PathTable();
+            pathTable.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            ShowWindow(pathTable, _window);
         }
         
         // Method for preventing open multiple windows at once
@@ -35,6 +34,4 @@ namespace Workaround.Classes.HotKeys
             winObj.Show();
         }
     }
-
-
 }

@@ -76,9 +76,14 @@ namespace Workaround.Classes
                 using (var connection = new SqliteConnection("Data Source=" + Dbname))
                 {
                     connection.Open();
+                    // Clips saver
                     var clipCreateCommand = connection.CreateCommand();
+                    // Big clips saver
                     var bigClipCreateCommand = connection.CreateCommand();
+                    // Settings saver
                     var SettingsCreateCommand = connection.CreateCommand();
+                    // Path saver
+                    var PathCreateCommand = connection.CreateCommand();
 
                     // Create table for simple clips (less 10000 length)
                     clipCreateCommand.CommandText =
@@ -103,6 +108,15 @@ namespace Workaround.Classes
                         setting text, value text)
                         ";
                     SettingsCreateCommand.ExecuteReader();
+                    
+                    // Create table for simple clips (less 10000 length)
+                    PathCreateCommand.CommandText =
+                        @"
+                        CREATE TABLE paths (id INTEGER	constraint paths_pk primary key autoincrement,
+                        path text, created text)
+                        ";
+                    PathCreateCommand.ExecuteReader();
+                    
                     connection.Close();
                     return connection;
                 }

@@ -31,6 +31,7 @@ namespace Workaround
             HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad0, () => { AddToList(new SearchInGoogle()); });
             HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad1, () => { AddToList(new OpenClipTable(this)); });
             HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad2, () => { AddToList(new MultipleInstancesOpen()); });
+            HotkeysManager.AddHotkey(ModifierKeys.Control, Key.NumPad3, () => { AddToList(new OpenPathTable(this)); });
 
             Closing += MainWindow_Closing;
         }
@@ -61,6 +62,12 @@ namespace Workaround
         {
             var settingsMenu = new Settings();
             settingsMenu.ShowDialog();
+        }
+        
+        private void MenuItem_OpenPaths(object sender, RoutedEventArgs e)
+        {
+            var pathTable = new PathTable();
+            pathTable.ShowDialog();
         }
 
         // Set selected clip to buffer
@@ -173,7 +180,7 @@ namespace Workaround
         }
 
         // Repeat single quote for giving ability to save to sqlite
-        private string ClipFormatSave(string str)
+        public static string ClipFormatSave(string str)
         {
             return str.Replace("'", "''");
         }
