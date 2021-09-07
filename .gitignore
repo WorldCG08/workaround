@@ -1,5 +1,7 @@
 Workaround/Workaround/bin/*
 Workaround/bin/*
 Workaround/obj/*
+WorkaroundService/bin/*
+WorkaroundService/obj/*
 .vs/*
 .idea/*
