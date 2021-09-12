@@ -56,7 +56,7 @@ namespace Workaround
                 if (search?.Length > 0)
                 {
                     command.CommandText =
-                        $"SELECT clip, created, id FROM clips WHERE clip LIKE '%{search}%' ORDER BY id DESC";
+                        $"SELECT clip, created, id FROM clips WHERE clip LIKE '%{search}%' OR created LIKE '%{search}%' OR id LIKE '%{search}%' ORDER BY id DESC";
                 }
                 else
                 {
