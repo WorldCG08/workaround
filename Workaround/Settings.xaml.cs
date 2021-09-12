@@ -13,6 +13,7 @@ namespace Workaround
         {
             InitializeComponent();
             settings_ClipLimit.Text = SettingsManager.Load("settings_ClipLimit", "10000");
+            settings_WslPath.Text = SettingsManager.Load("settings_WslPath", @"C:\Windows\System32\wsl.exe");
         }
 
         // Button for saving all settings

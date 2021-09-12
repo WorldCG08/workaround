@@ -22,7 +22,7 @@ namespace Workaround.Classes
                 //Check is setting exist.
                 if (IsSettingExist(setting))
                 {
-                    command.CommandText = $"UPDATE settings SET value = {value} WHERE setting = '{setting}'";
+                    command.CommandText = $"UPDATE settings SET value = '{value}' WHERE setting = '{setting}'";
                 }
                 else
                 {

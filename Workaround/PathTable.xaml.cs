@@ -109,11 +109,12 @@ namespace Workaround
         private void pathList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var index = PathList.SelectedItem;
+            var wslPath = SettingsManager.Load("settings_WslPath");
             if (index == null) return;
 
-            if (Keyboard.IsKeyDown(Key.LeftShift))
+            if (Keyboard.IsKeyDown(Key.LeftShift) && wslPath != null)
             {
-                Process.Start(@"C:\Windows\System32\wsl.exe", $"--cd \"{PathList.SelectedItem.ToString()!}\"");
+                Process.Start(wslPath, $"--cd \"{PathList.SelectedItem.ToString()!}\"");
             }
             else
             {
