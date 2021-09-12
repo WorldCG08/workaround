@@ -66,11 +66,11 @@ namespace Workaround
 
                 command.ExecuteReader();
                 _conn.Close();
-                
+
                 PathList.Items.Insert(0, path);
             }
         }
-        
+
         // Get a list of paths
         private List<string> GetPaths()
         {
@@ -94,7 +94,7 @@ namespace Workaround
 
             return pathList;
         }
-        
+
         // Show list with clips in ClipList.
         private void InitializePathList(List<string> pathList)
         {
@@ -110,8 +110,14 @@ namespace Workaround
         {
             var index = PathList.SelectedItem;
             if (index == null) return;
+
+            if (Keyboard.IsKeyDown(Key.LeftShift))
             {
-                Process.Start("explorer.exe" , PathList.SelectedItem.ToString()!);
+                Process.Start(@"C:\Windows\System32\wsl.exe", $"--cd \"{PathList.SelectedItem.ToString()!}\"");
+            }
+            else
+            {
+                Process.Start("explorer.exe", PathList.SelectedItem.ToString()!);
             }
         }
     }
